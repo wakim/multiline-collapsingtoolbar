@@ -122,6 +122,9 @@ final class CollapsingTextHelper {
     private int maxLines = 3;
     private float lineSpacingExtra = 0;
     private float lineSpacingMultiplier = 1;
+    private boolean drawCrossSectionTitle = true;
+    private boolean drawExpandedTitle = true;
+    private boolean drawCollapsedTitle = true;
     // END MODIFICATION
 
     public CollapsingTextHelper(View view) {
@@ -594,32 +597,49 @@ final class CollapsingTextHelper {
             if (drawTexture) {
                 // If we should use a texture, draw it instead of text
                 // Expanded text
-                mTexturePaint.setAlpha((int) (mExpandedTextBlend * 255));
-                canvas.drawBitmap(mExpandedTitleTexture, currentExpandedX, y, mTexturePaint);
+                if (drawExpandedTitle) {
+                    mTexturePaint.setAlpha((int) (mExpandedTextBlend * 255));
+                    canvas.drawBitmap(mExpandedTitleTexture, currentExpandedX, y, mTexturePaint);
+                }
+
                 // Collapsed text
-                mTexturePaint.setAlpha((int) (mCollapsedTextBlend * 255));
-                canvas.drawBitmap(mCollapsedTitleTexture, x, y, mTexturePaint);
-                // Cross-section between both texts (should stay at alpha = 255)
-                mTexturePaint.setAlpha(255);
-                canvas.drawBitmap(mCrossSectionTitleTexture, x, y, mTexturePaint);
+                if (drawCollapsedTitle) {
+                    mTexturePaint.setAlpha((int) (mCollapsedTextBlend * 255));
+                    canvas.drawBitmap(mCollapsedTitleTexture, x, y, mTexturePaint);
+                }
+
+                if (drawCrossSectionTitle) {
+                    // Cross-section between both texts (should stay at alpha = 255)
+                    mTexturePaint.setAlpha(255);
+                    canvas.drawBitmap(mCrossSectionTitleTexture, x, y, mTexturePaint);
+                }
             } else {
                 // positon expanded text appropriately
                 canvas.translate(currentExpandedX, y);
                 // Expanded text
                 mTextPaint.setAlpha((int) (mExpandedTextBlend * 255));
-                mTextLayout.draw(canvas);
+
+                if (drawExpandedTitle) {
+                    mTextLayout.draw(canvas);
+                }
 
                 // position the overlays
                 canvas.translate(x - currentExpandedX, 0);
 
-                // Collapsed text
-                mTextPaint.setAlpha((int) (mCollapsedTextBlend * 255));
-                canvas.drawText(mTextToDrawCollapsed, 0, mTextToDrawCollapsed.length(), 0,
-                        -ascent / mScale, mTextPaint);
+                if (drawCollapsedTitle) {
+                    // Collapsed text
+                    mTextPaint.setAlpha((int) (mCollapsedTextBlend * 255));
+                    canvas.drawText(mTextToDrawCollapsed, 0, mTextToDrawCollapsed.length(), 0,
+                            -ascent / mScale, mTextPaint);
+                }
+
                 // Cross-section between both texts (should stay at alpha = 255)
-                mTextPaint.setAlpha(255);
-                canvas.drawText(mTextToDraw, mTextLayout.getLineStart(0),
-                        mTextLayout.getLineEnd(0), 0, -ascent / mScale, mTextPaint);
+
+                if (drawCrossSectionTitle) {
+                    mTextPaint.setAlpha(255);
+                    canvas.drawText(mTextToDraw, mTextLayout.getLineStart(0),
+                            mTextLayout.getLineEnd(0), 0, -ascent / mScale, mTextPaint);
+                }
             }
             // END MODIFICATION
         }
@@ -883,6 +903,20 @@ final class CollapsingTextHelper {
     CharSequence getText() {
         return mText;
     }
+
+    // BEGIN MODIFICATION: new setDrawCrossSectionTitle, setDrawCollapsedTitle and setDrawExpandedTitle method
+    public void setDrawCrossSectionTitle(boolean drawCrossSectionTitle) {
+        this.drawCrossSectionTitle = drawCrossSectionTitle;
+    }
+
+    public void setDrawCollapsedTitle(boolean drawCollapsedTitle) {
+        this.drawCollapsedTitle = drawCollapsedTitle;
+    }
+
+    public void setDrawExpandedTitle(boolean drawExpandedTitle) {
+        this.drawExpandedTitle = drawExpandedTitle;
+    }
+    // END MODIFICATION
 
     private void clearTexture() {
         if (mExpandedTitleTexture != null) {
