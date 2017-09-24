@@ -16,46 +16,28 @@
 
 package net.opacapp.multilinecollapsingtoolbar;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static net.opacapp.multilinecollapsingtoolbar.MathUtils.constrain;
-import static net.opacapp.multilinecollapsingtoolbar.ViewUtils.objectEquals;
-
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.StyleRes;
+import android.annotation.*;
+import android.content.*;
+import android.content.res.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
+import android.support.annotation.*;
 import android.support.design.R;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.WindowInsetsCompat;
+import android.support.design.widget.*;
+import android.support.v4.content.*;
+import android.support.v4.graphics.drawable.*;
+import android.support.v4.view.*;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.FrameLayout;
+import android.text.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.*;
+
+import static android.support.annotation.RestrictTo.Scope.*;
+import static net.opacapp.multilinecollapsingtoolbar.MathUtils.*;
+import static net.opacapp.multilinecollapsingtoolbar.ViewUtils.*;
 
 /**
  * CollapsingToolbarLayout is a wrapper for {@link Toolbar} which implements a collapsing app bar.
@@ -253,6 +235,20 @@ public class CollapsingToolbarLayout extends FrameLayout {
      */
     public int getMaxLines() {
         return mCollapsingTextHelper.getMaxLines();
+    }
+    // END MODIFICATION
+
+    // BEGIN MODIFICATION: add setDrawCrossSectionTitle, setDrawCollapsedTitle and setDrawExpandedTitle method
+    public void setDrawCrossSectionTitle(boolean drawCrossSectionTitle) {
+        mCollapsingTextHelper.setDrawCrossSectionTitle(drawCrossSectionTitle);
+    }
+
+    public void setDrawCollapsedTitle(boolean drawCollapsedTitle) {
+        mCollapsingTextHelper.setDrawCollapsedTitle(drawCollapsedTitle);
+    }
+
+    public void setDrawExpandedTitle(boolean drawExpandedTitle) {
+        mCollapsingTextHelper.setDrawExpandedTitle(drawExpandedTitle);
     }
     // END MODIFICATION
 
