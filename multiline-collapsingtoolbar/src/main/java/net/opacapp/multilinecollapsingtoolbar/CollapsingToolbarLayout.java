@@ -259,6 +259,20 @@ public class CollapsingToolbarLayout extends FrameLayout {
     }
     // END MODIFICATION
 
+    // BEGIN MODIFICATION: add setDrawCrossSectionTitle, setDrawCollapsedTitle and setDrawExpandedTitle method
+    public void setDrawCrossSectionTitle(boolean drawCrossSectionTitle) {
+        mCollapsingTextHelper.setDrawCrossSectionTitle(drawCrossSectionTitle);
+    }
+
+    public void setDrawCollapsedTitle(boolean drawCollapsedTitle) {
+        mCollapsingTextHelper.setDrawCollapsedTitle(drawCollapsedTitle);
+    }
+
+    public void setDrawExpandedTitle(boolean drawExpandedTitle) {
+        mCollapsingTextHelper.setDrawExpandedTitle(drawExpandedTitle);
+    }
+    // END MODIFICATION
+
     // BEGIN MODIFICATION: add setLineSpacingExtra and getLineSpacingExtra
     /**
      * Set line spacing extra. The default is 0.0f
