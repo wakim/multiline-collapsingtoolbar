@@ -666,7 +666,7 @@ final class CollapsingTextHelper {
         final float collapsedWidth = mCollapsedBounds.width();
         final float expandedWidth = mExpandedBounds.width();
 
-        final float availableWidth;
+        float availableWidth = 0f;
         final float newTextSize;
         boolean updateDrawText = false;
         // BEGIN MODIFICATION: Add maxLines variable
@@ -719,7 +719,12 @@ final class CollapsingTextHelper {
             updateDrawText = (mCurrentTextSize != newTextSize) || mBoundsChanged || updateDrawText;
             mCurrentTextSize = newTextSize;
             mBoundsChanged = false;
+        // BEGIN MODIFICATION: availableWidth cannot be less than 0
+        // http://crashes.to/s/5921a9e5cf1
+        } else {
+            availableWidth = 0;
         }
+        // END MODIFICATION
         if (mTextToDraw == null || updateDrawText) {
             mTextPaint.setTextSize(mCurrentTextSize);
             mTextPaint.setTypeface(mCurrentTypeface);
